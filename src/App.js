@@ -18,7 +18,19 @@ const things = [
 'hi',
 'hello',
 'bye',
-'hi'
+'hi',
+'more',
+'content',
+'hellooo',
+'another',
+'the',
+'quick',
+'brown',
+'fox',
+'jumped',
+'over',
+'the',
+'LAZY DOG'
 ]
 
 
@@ -29,7 +41,8 @@ class App extends Component {
     this.state = {
   	page: 0,
 	backwards: false,
-	forwards: true
+	forwards: true,
+	perPage: 5
      }
    }
 
@@ -41,10 +54,16 @@ class App extends Component {
 
   handleForward() {
     console.log(things.length, this.state.page)
-    if ((this.state.page + 2)*5 >= things.length) {
+    if ((this.state.page + 2)*this.state.perPage >= things.length) {
     	this.setState({ forwards: false })
     }
     this.setState({ page: this.state.page + 1, backwards: true})
+  }
+
+  handleNewPerPage(e) {
+  	e.preventDefault()
+	console.log(this.refs, this.inputVal.value)
+	this.setState({ perPage: +this.inputVal.value, page: 0 })
   }
 
 
@@ -53,7 +72,7 @@ class App extends Component {
   var content = things.map((t, i) => {
   	return <p key={i}>{i+1}: {t}</p>
   }).filter((t, i) => {
-  	return (i >= this.state.page*5 && i <= this.state.page*5 + 4)
+  	return (i >= this.state.page*this.state.perPage && i <= this.state.page*this.state.perPage + this.state.perPage - 1)
   })
 
 
@@ -63,6 +82,18 @@ class App extends Component {
 		<input type='submit' value='Back' disabled={!this.state.backwards} onClick={this.handleBack.bind(this)}/>
 		<input type='submit' value='Next' disabled={!this.state.forwards} onClick={this.handleForward.bind(this)}/>
 		{content}
+		<br />
+		<p>per page: {this.state.perPage}</p>
+		<form onSubmit={this.handleNewPerPage.bind(this)}>
+			<label>Customize:
+			<input type='number'
+			max={things.length}
+			min={1}
+			ref ={ (input) => {this.inputVal = input} }
+			/>
+			</label>
+			<input type='submit' value='Update' />
+		</form>
       	</div>
     );
   }
