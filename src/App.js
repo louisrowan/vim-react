@@ -2,20 +2,36 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
+
+const things = [
+'hello',
+'bye',
+'hi',
+'hello',
+'bye',
+'hi',
+'hello',
+'bye',
+'hi',
+'hello',
+'bye',
+'hi',
+'hello',
+'bye',
+'hi'
+]
+
+
 class App extends Component {
   render() {
+  var content = things.map((t, i) => {
+  	return <p key={i}>{i+1}: {t}</p>
+	})
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to t</h2>
-	  <p>new stuff</p>
-	  <h2>more new stuff</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+    	<div>
+		{content}
+      	</div>
     );
   }
 }
