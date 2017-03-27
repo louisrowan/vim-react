@@ -53,7 +53,6 @@ class App extends Component {
   }
 
   handleForward() {
-    console.log(things.length, this.state.page)
     if ((this.state.page + 2)*this.state.perPage >= things.length) {
     	this.setState({ forwards: false })
     }
@@ -62,8 +61,12 @@ class App extends Component {
 
   handleNewPerPage(e) {
   	e.preventDefault()
-	console.log(this.refs, this.inputVal.value)
-	this.setState({ perPage: +this.inputVal.value, page: 0 })
+	this.setState({ perPage: +this.inputVal.value, page: 0, backwards: false })
+	if (+this.inputVal.value >= things.length) {
+    		this.setState({ forwards: false })
+    	} else { this.setState({ forwards: true }) }
+	this.inputVal.value = ''
+
   }
 
 
