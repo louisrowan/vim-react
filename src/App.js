@@ -27,19 +27,24 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-  	page: 0 
+  	page: 0,
+	backwards: false,
+	forwards: true
      }
    }
 
 
   handleBack() {
-    console.log('go back')
+    if (this.state.page <= 1) this.setState({ backwards: false })
+    this.setState({ page: this.state.page - 1, forwards: true})
   }
 
   handleForward() {
-    console.log('go forward')
-    console.log(this.state.page)
-    this.setState({ page: this.state.page + 1})
+    console.log(things.length, this.state.page)
+    if ((this.state.page + 2)*5 >= things.length) {
+    	this.setState({ forwards: false })
+    }
+    this.setState({ page: this.state.page + 1, backwards: true})
   }
 
 
@@ -48,14 +53,15 @@ class App extends Component {
   var content = things.map((t, i) => {
   	return <p key={i}>{i+1}: {t}</p>
   }).filter((t, i) => {
-  	return (i >= this.state.page*5 && i <= this.state.page*5 + 5)
+  	return (i >= this.state.page*5 && i <= this.state.page*5 + 4)
   })
 
 
     return (
     	<div>
-		<button onClick={this.handleBack.bind(this)}>Back</button>
-				<button onClick={this.handleForward.bind(this)}>Next</button>
+		<h2>Page {this.state.page + 1} </h2>
+		<input type='submit' value='Back' disabled={!this.state.backwards} onClick={this.handleBack.bind(this)}/>
+		<input type='submit' value='Next' disabled={!this.state.forwards} onClick={this.handleForward.bind(this)}/>
 		{content}
       	</div>
     );
