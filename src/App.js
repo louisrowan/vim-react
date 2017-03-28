@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+const Header = require('./Header')
 
 
 const things = [
@@ -81,6 +81,7 @@ class App extends Component {
 
     return (
     	<div>
+		<Header />
 		<h2>Page {this.state.page + 1} </h2>
 		<input type='submit' value='Back' disabled={!this.state.backwards} onClick={this.handleBack.bind(this)}/>
 		<input type='submit' value='Next' disabled={!this.state.forwards} onClick={this.handleForward.bind(this)}/>
@@ -92,7 +93,7 @@ class App extends Component {
 			<input type='number'
 			max={things.length}
 			min={1}
-			ref ={ (input) => {this.inputVal = input} }
+			ref={ (input) => {this.inputVal = input} }
 			/>
 			</label>
 			<input type='submit' value='Update' />
