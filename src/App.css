@@ -7,6 +7,10 @@ body {
   padding: 10px;
 }
 
+h2 {
+  color: blue;
+}
+
 li {
   animation: animate-li 2s infinite;
 }

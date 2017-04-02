@@ -9,6 +9,7 @@ const Header = React.createClass({
 			<li>eapigjwe</li>
 			<li>eaighegpi</li>
 			<li>more stuff</li>
+			<li>hello</li>
 		</ul>
 	</div>
     )
